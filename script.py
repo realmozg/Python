@@ -188,11 +188,41 @@ for newfile in archive_file_list:
             print('Записываю %s, размер файлов: %s'%(newfile, MedUnregCs))
             zipmmedunregcs.write(newfile)
 
-zipform5.close()
-zipmigcs.close()
-##zipmedcs.close()
-##zipunregcs.close()
-##zipmmedunregcs.close()
+try:
+    zipform5.close()
+except:
+    print ('невозможно закрыть zip архив Form5')
+else:
+    print('Архив Form5 успешно закрыт')
+
+try:
+    zipmigcs.close()
+except:
+    print ('невозможно закрыть zip архив MigCs')
+else:
+    print('Архив MigCs успешно закрыт')
+
+try:
+    zipmedcs.close()
+except:
+    print ('невозможно закрыть zip архив MedCs')
+else:
+    print('Архив MedCs успешно закрыт')
+
+try:
+    ipunregcs.close()
+except:
+    print ('невозможно закрыть zip архив UnregCs')
+else:
+    print('Архив UnregCs успешно закрыт')
+
+try:
+    zipmmedunregcs.close()
+except:
+    print ('невозможно закрыть zip архив MedUnregCs')
+else:
+    print('Архив MedUnregCs успешно закрыт')
+    
 
 print('Размер файлов Form5: %s' %Form5_size)
 print('Размер файлов MigCs: %s' %MigCs_size)
