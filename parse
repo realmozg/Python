@@ -2,6 +2,12 @@ from bs4 import BeautifulSoup
 import os
 import html.parser
 
+
+
+
+
+
+
 folder = 'C:\\Users\\demom\\OneDrive\\Рабочий стол\\Parse\\'
 file = 'C:\\Users\\demom\\OneDrive\\Рабочий стол\\Parse\\parse.htm'
 file_log = 'C:\\Users\\demom\\OneDrive\\Рабочий стол\\Parse\\log.txt'
