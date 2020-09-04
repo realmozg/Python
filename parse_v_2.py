@@ -37,39 +37,21 @@ else:
 def log_file (text, file_name):
     if os.path.isfile(file_name):
         with open(file_name, 'a', encoding='UTF-8') as file_name:
-            file_name.write(text+'\n')
+            file_name.write(text+'\r\n')
     else:
         with open(file_name, 'w', encoding='UTF-8') as file_name:    
-            file_name.write(text+'\n')
+            file_name.write(text+'\r\n')
 
 resp = requests.get(site_for_parse).text
 soup = BeautifulSoup(resp, "html.parser")
-result = soup.findAll(id=re.compile('^caCertifcicatesGroupId'))
+result = soup.findAll('div', id=re.compile('^caCertifcicatesGroupId'))
 
 for i in result:
-    print(str(i.td.text)+"\n\n")
-    print(str(i.td.a.get('href'))+"\n\n")
-
-
-# openfile = open(file, "r", encoding="UTF-8")
-# file_log = open(file_log, "w", encoding="UTF-8")
-
-# contents = openfile.read()
-
-# soup = BeautifulSoup(contents, 'html.parser')
-
-
-
-# print(soup.td.text)
-# print(soup.a['href'])
-
-# list_td = soup.find_all('td')
-
-# for href in list_td:
-	
-# 	print (href.children)
-# 	print (href.text)
-
-
-# file_log.close()
-# openfile.close()
+    result2 = i.findAll('td')
+    for k in result2:
+        if k.string!='cкачать':
+            print(k.string)
+        elif k.a:
+            print(k.a.get('href'))
+        # else:
+        #     continue
