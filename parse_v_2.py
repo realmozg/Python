@@ -12,7 +12,6 @@ site_for_parse = 'https://ca.kontur.ru/about/certificates'
 
 def create_folder(folder):
     if os.path.exists(folder):
-        os.chdir(folder)
         return 1
     else:
         try:
@@ -23,10 +22,11 @@ def create_folder(folder):
             return 0
         else:
             print("Рабочий каталог %s создан"%dirs)
-            return new_dir
+            return 1
 
-status = create_folder(folder)
-if status==0:
+os.chdir(folder)
+main_folder  = create_folder(folder)
+if main_folder==0:
     print("Выход из программы")
     sys.exit()
 else:
@@ -37,10 +37,19 @@ else:
 def log_file (text, file_name):
     if os.path.isfile(file_name):
         with open(file_name, 'a', encoding='UTF-8') as file_name:
-            file_name.write(text+'\r\n')
+            file_name.write(text+'\n')
     else:
         with open(file_name, 'w', encoding='UTF-8') as file_name:    
-            file_name.write(text+'\r\n')
+            file_name.write(text+'\n')
+
+def download_file(url, name, folder):
+    req = requests.get(url)
+    file_data = req.content
+    with open(folder + name, 'wb') as f:
+        f.write(file_data)
+
+# Написать функцию для сохранению файлов
+
 
 resp = requests.get(site_for_parse).text
 soup = BeautifulSoup(resp, "html.parser")
@@ -53,6 +62,15 @@ for i in result:
         if not re.search('Скачать', k.text):
             print(k.text)
             log_file(k.text, 'link.txt')
+            new_folder = k.text # использовать переменную для формирования записи файлов
+            create_folder(k.text)
         else:
-            print(k.a.get('href'))
-            log_file(k.a.get('href'), 'link.txt')
+            if k.a.get('href').startswith('/Files') or k.a.get('href').startswith('/cdp/'):
+                print('https://ca.kontur.ru'+k.a.get('href'))
+                log_file('https://ca.kontur.ru'+k.a.get('href'), 'link.txt')
+                url = 'https://ca.kontur.ru'+k.a.get('href') # использовать переменную для формирования записи файлов
+                # todo включить функцию по записи сертификатов в каталог
+            else:
+                print(k.a.get('href'))
+                log_file(k.a.get('href'), 'link.txt')
+                url = k.a.get('href') # использовать переменную для формирования записи файлов
