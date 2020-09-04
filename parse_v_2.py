@@ -16,14 +16,14 @@ def create_folder(folder):
         return 1
     else:
         try:
-            os.makedirs(folder)
+            new_dir = os.makedirs(folder)
             dirs = os.path.dirname(folder)
         except OSError:
             print("Невозможно создать директорию")
             return 0
         else:
             print("Рабочий каталог %s создан"%dirs)
-            return 1
+            return new_dir
 
 status = create_folder(folder)
 if status==0:
@@ -48,10 +48,11 @@ result = soup.findAll('div', id=re.compile('^caCertifcicatesGroupId'))
 
 for i in result:
     result2 = i.findAll('td')
+
     for k in result2:
-        if k.string!='cкачать':
-            print(k.string)
-        elif k.a:
+        if not re.search('Скачать', k.text):
+            print(k.text)
+            log_file(k.text, 'link.txt')
+        else:
             print(k.a.get('href'))
-        # else:
-        #     continue
+            log_file(k.a.get('href'), 'link.txt')
