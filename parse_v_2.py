@@ -50,7 +50,6 @@ def download_file(url, name, folder):
 
 # Написать функцию для сохранению файлов
 
-
 resp = requests.get(site_for_parse).text
 soup = BeautifulSoup(resp, "html.parser")
 result = soup.findAll('div', id=re.compile('^caCertifcicatesGroupId'))
