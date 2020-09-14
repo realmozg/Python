@@ -65,17 +65,16 @@ for i in result:
         else:
             if  k.a.get('href').startswith('/Files') or k.a.get('href').startswith('/cdp/'):
                 print('https://ca.kontur.ru'+k.a.get('href'))
-                # cert_name = 'https://ca.kontur.ru'+k.a.get('href')
+                cert_name = re.split('/', 'https://ca.kontur.ru'+k.a.get('href'))[-1]
+                print(cert_name)
                 log_file('https://ca.kontur.ru'+k.a.get('href'), 'link.txt')
-                # url = r'https://ca.kontur.ru'+k.a.get('href') # использовать переменную для формирования записи файлов
-                # download_file(url, cert_name)
-                # name_file = re.search('\.(crt|crl|zip)$', k.a.get('href'))
-                # print (name_file)
-                # todo включить функцию по записи сертификатов в каталог
+                url = 'https://ca.kontur.ru'+k.a.get('href') # использовать переменную для формирования записи файлов
+                download_file(url, cert_name)
+               
             else:
                 print(k.a.get('href'))
-                # cert_name = k.a.get('href')
+                cert_name = re.split('/', k.a.get('href'))[-1]
+                print (cert_name)
                 log_file(k.a.get('href'), 'link.txt')
-                # url = k.a.get('href') 
-                # # использовать переменную для формирования записи файлов
-                # download_file(url, cert_name)
+                url = k.a.get('href')
+                download_file(url, cert_name)
