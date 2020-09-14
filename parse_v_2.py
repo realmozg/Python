@@ -5,19 +5,19 @@ import sys
 import requests
 import re
 
-folder = 'C:\\Users\\demom\\OneDrive\\Рабочий стол\\Новая папка'
+folder = 'C:\\Users\\demom\\Desktop\\Parse_site\\Новая папка\\'
 site_for_parse = 'https://ca.kontur.ru/about/certificates'
 
 ################### Блок с функциями ######################
 
 def create_folder(folder):
     if os.path.exists(folder):
-        return os.path.dirname(folder)
+        return 1 
     else:
         try:
             os.makedirs(folder)
             print("Каталог создан")
-            return os.path.dirname(folder)
+            return 1
         except OSError:
             print("Невозможно создать директорию")
             return 0
@@ -65,17 +65,17 @@ for i in result:
         else:
             if  k.a.get('href').startswith('/Files') or k.a.get('href').startswith('/cdp/'):
                 print('https://ca.kontur.ru'+k.a.get('href'))
-                cert_name = 'https://ca.kontur.ru'+k.a.get('href')
+                # cert_name = 'https://ca.kontur.ru'+k.a.get('href')
                 log_file('https://ca.kontur.ru'+k.a.get('href'), 'link.txt')
-                url = r'https://ca.kontur.ru'+k.a.get('href') # использовать переменную для формирования записи файлов
-                download_file(url, cert_name)
+                # url = r'https://ca.kontur.ru'+k.a.get('href') # использовать переменную для формирования записи файлов
+                # download_file(url, cert_name)
                 # name_file = re.search('\.(crt|crl|zip)$', k.a.get('href'))
                 # print (name_file)
                 # todo включить функцию по записи сертификатов в каталог
             else:
                 print(k.a.get('href'))
-                cert_name = k.a.get('href')
+                # cert_name = k.a.get('href')
                 log_file(k.a.get('href'), 'link.txt')
-                url = k.a.get('href') 
-                # использовать переменную для формирования записи файлов
-                download_file(url, cert_name)
+                # url = k.a.get('href') 
+                # # использовать переменную для формирования записи файлов
+                # download_file(url, cert_name)
