@@ -56,6 +56,7 @@ result = soup.findAll('div', id=re.compile('^caCertifcicatesGroupId'))
 
 for i in result:
     result2 = i.findAll('td')
+    print(i.id)
     for k in result2:
         if not re.search('Скачать', k.text):
             print(k.text)
