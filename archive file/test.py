@@ -25,10 +25,21 @@ def create_folder(path, name):
             return 0
 
 def log_write(text):
-    logging.basicConfig(filename='2020-09-19.log', level=logging.INFO)
-    logging.warning(text, exc_info = True)
+    log_date = datetime.datetime.now().strftime('%d.%m.%y')
+    logging.basicConfig(filename=log_date + '.log', level=logging.INFO)
+##    logging.warning(text, exc_info = True)
     logging.info(text, exc_info = True)
-    logging.error(text, exc_info = True)        
+##    logging.error(text, exc_info = True)
+
+#####################
+
+# Написать функцию создания и считывания конфига ini
+
+#####################
+
+
+
+
 
 ##if __name__ == '__main__':
     
