@@ -29,7 +29,7 @@ def config_file():
                                                'Создавать лог файл по каждому архиву':''}
                         }
         config.read_dict(section_dict)
-        with open(path, 'w') as file:
+        with open(path, 'a') as file:
             config.write(file)
     else:
         pass
